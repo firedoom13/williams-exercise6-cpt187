@@ -1,0 +1,74 @@
+//AUTHOR: Deontae Williams
+//COURSE: CPT 187
+//PURPOSE: Writes down the information of the order that the customer orders to a file.
+//STARTDATE: 4/26/21
+package edu.cpt187.williams.exercise7;
+
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+//Start of WriteOrder class
+public class WriteOrder 
+{
+	private boolean fileFoundFlag = false;
+	private String masterFileName = "";
+	private int recordCount = 0;
+
+	//-------------Setters
+
+	//Start WriteOrder
+	WriteOrder(String borrowedFileName)
+	{
+		masterFileName = borrowedFileName;
+	}//End WriteOrder
+
+	//Start setWriteOrder
+	public void setWriteOrder(int borrowedItemID, String borrowedItemName, double borrowedItemPrice, int borrowedQuantity, double borrowedOrderCost)
+	{
+		//Start try
+		try 
+		{
+			//if the file is found it will continue
+			PrintWriter filePW = new PrintWriter(new FileWriter(masterFileName, true));
+
+
+			filePW.printf("%d\t%s\t%.2f\t%d\t%.2f%n", borrowedItemID, borrowedItemName, borrowedItemPrice, borrowedQuantity, borrowedOrderCost);
+			recordCount++;
+
+			//Sets flag to true if found
+			fileFoundFlag = true;
+
+			//close file
+			filePW.close();
+		}//end try
+
+		//Start catch errors
+		catch (IOException ex)
+		{
+			//sets flag if file not found
+			fileFoundFlag = false;
+		}//End catch errors
+	}//End setWriteOrder
+
+	//-----------Getters
+
+	//Start fileFoundFlag
+	public boolean getFileFoundFlag()
+	{
+		return fileFoundFlag;
+	}//End fileFoundFlag
+
+	//Start FileName
+	public String getFileName()
+	{
+		return masterFileName;
+	}//End fileName
+
+	//Start RecordCound
+	public int getRecordCount()
+	{
+		return recordCount;
+	}//End recordCound
+
+}//End of WriteOrder class
